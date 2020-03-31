@@ -1,2 +1,3 @@
 - [Home](/)
 - [Keycloak.js](keycloak-js.md)
+- [KeycloakAuthz.js](keycloak-authz-js)

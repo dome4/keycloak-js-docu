@@ -826,6 +826,10 @@
     }
   }
 })(window, function(sha256_imported, base64js_imported) {
+  /**
+   * TODO: Keycloak constructor
+   * contains all following functions
+   */
   function Keycloak(config) {
     if (!(this instanceof Keycloak)) {
       return new Keycloak(config);
@@ -859,6 +863,9 @@
     var logInfo = createLogger(console.info);
     var logWarn = createLogger(console.warn);
 
+    /**
+     * TODO: initialise function
+     */
     kc.init = function(initOptions) {
       kc.authenticated = false;
 
@@ -1141,6 +1148,9 @@
       return promise.promise;
     };
 
+    /**
+     * TODO: login function
+     */
     kc.login = function(options) {
       return adapter.login(options);
     };
