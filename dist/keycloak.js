@@ -827,7 +827,7 @@
   }
 })(window, function(sha256_imported, base64js_imported) {
   /**
-   * TODO: Keycloak constructor
+   * Keycloak constructor
    * contains all following functions
    */
   function Keycloak(config) {
@@ -869,6 +869,7 @@
     kc.init = function(initOptions) {
       kc.authenticated = false;
 
+      // local storage or cookie storage
       callbackStorage = createCallbackStorage();
       var adapters = ['default', 'cordova', 'cordova-native'];
 
@@ -1149,7 +1150,7 @@
     };
 
     /**
-     * TODO: login function
+     * login function
      */
     kc.login = function(options) {
       return adapter.login(options);
@@ -2652,6 +2653,9 @@
       };
     };
 
+    /**
+     * create local storage or cookie storage
+     */
     function createCallbackStorage() {
       try {
         return new LocalStorage();

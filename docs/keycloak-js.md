@@ -2,25 +2,32 @@
 
 [Keycloak.js Library](https://github.com/keycloak/keycloak-js-bower/blob/master/dist/keycloak.js)
 
-## TODO: function Keycloak(config)
+## Keycloak(config)
 
-- Konstruktor für die Keycloak-"Klasse"
-- enthält alle weiteren Funktionen
-- `var kc = this;`: kc ist eine Referenz auf das aktuelle Keycloak-Objekt
-- Funktionen ohne `kc.` sind von außen wohl nicht aufrufbar
-
-## FIXME: kc.init(initOptions)
-
-- initialise function
-- TODO: welche Requests werden gesendet?
-- enthaltene Methoden:
-
-  - `onLoad()`: TODO:
-  - `checkSsoSilently()`: TODO:
-  - `processInit()`: TODO:
-
-- Properties:
+- constructor of the Keycloak "class"
+- all further functions are included
+- functions without `kc.` are probably not callable from outside
+- properties:
+  - `kc = this;`: kc is a reference to the current Keycloak object
   - `kc.token`: bearer token
+  - `callbackStorage`: local storage (default) or cookie storage
+
+## kc.init(initOptions)
+
+- adapter is loaded (`'default', 'cordova', 'cordova-native'`)
+- initOptions are set
+- no request is sent
+
+#### onLoad()
+
+- contained methods:
+  - `doLogin(prompt)`: run `kc.login(options)` -> TODO: request?
+  - `checkSsoSilently()`: handle silent sso
+- if `initOptions.onLoad` is `check-sso` or `login-required` then `doLogin()` is executed
+
+#### processInit()
+
+- previous functions are executed
 
 ## kc.login(options)
 
@@ -40,7 +47,10 @@
 
 ## TODO: generatePkceChallenge(pkceMethod, codeVerifier)
 
-## TODO: kc.createLoginUrl(options)
+## kc.createLoginUrl(options)
+
+- creates and returns url for path `'/auth'` if `options.action !== 'register'`
+- TODO: where is this url used?
 
 ## TODO: kc.createLogoutUrl(options)
 
@@ -141,14 +151,33 @@ kc.onAuthRefreshSuccess && kc.onAuthRefreshSuccess();
 
 - enthält weitere Methoden
 
-## TODO: LocalStorage()
+## LocalStorage()
 
-- Konstruktor für LocalStorage-"Klasse"
+- constructor of the LocalStorage "class"
+- used as default
+- current state is saved to local storage:
 
-## TODO: CookieStorage()
+```js
+var key = 'kc-callback-' + state.state;
+state.expires = new Date().getTime() + 60 * 60 * 1000;
+localStorage.setItem(key, JSON.stringify(state));
+```
 
-- Konstruktor für CookieStorage-"Klasse"
+## CookieStorage()
 
-## TODO: createCallbackStorage()
+- constructor of the CookieStorage "class"
+- current state is saved as a cookie:
+
+```js
+setCookie(
+  'kc-callback-' + state.state,
+  JSON.stringify(state),
+  cookieExpiration(60)
+);
+```
+
+## createCallbackStorage()
+
+- try to use **local storage**, use **cookie storage** if local storage fails
 
 ## TODO: createLogger(fn)

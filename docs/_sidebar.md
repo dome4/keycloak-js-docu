@@ -1,3 +1,4 @@
 - [Home](/)
 - [Keycloak.js](keycloak-js.md)
 - [KeycloakAuthz.js](keycloak-authz-js)
+- [LoginStatusIframe.html](login-status-iframe-html.md)
