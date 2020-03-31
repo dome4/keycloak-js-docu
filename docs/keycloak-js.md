@@ -69,7 +69,7 @@ promise.setSuccess(kc.profile);
 ## kc.loadUserInfo()
 
 - sends request to `kc.endpoints.userinfo()`
-- resolves to `'/protocol/openid-connect/userinfo'` if OIDC server is **not** used
+- resolves to `'/userinfo'` if OIDC server is **not** used
 - runs on success:
 
 ```js
@@ -79,7 +79,23 @@ promise.setSuccess(kc.userInfo);
 
 ## TODO: kc.isTokenExpired()
 
-## FIXME: kc.updateToken(minValidity)
+## kc.updateToken(minValidity = 5)
+
+- `kc.refreshToken` is necessary. Otherwise an error will occur.
+- `checkLoginIframe()` is executed if `loginIframe.enable === true`
+- then sends request to `kc.endpoints.token()`
+- resolves to `'/token'` if OIDC server is **not** used
+- runs on success:
+
+```js
+setToken(
+  tokenResponse['access_token'],
+  tokenResponse['refresh_token'],
+  tokenResponse['id_token'],
+  timeLocal
+);
+kc.onAuthRefreshSuccess && kc.onAuthRefreshSuccess();
+```
 
 ## TODO: kc.clearToken()
 

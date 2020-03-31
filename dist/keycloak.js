@@ -1430,6 +1430,9 @@
       return expiresIn < 0;
     };
 
+    /**
+     * update token - get new acces token?
+     */
     kc.updateToken = function(minValidity) {
       var promise = createPromise(false);
 
