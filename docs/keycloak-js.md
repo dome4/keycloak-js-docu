@@ -14,9 +14,13 @@
 - initialise function
 - TODO: welche Requests werden gesendet?
 - enthaltene Methoden:
+
   - `onLoad()`: TODO:
   - `checkSsoSilently()`: TODO:
   - `processInit()`: TODO:
+
+- Properties:
+  - `kc.token`: bearer token
 
 ## kc.login(options)
 
@@ -52,9 +56,26 @@
 
 ## TODO: kc.hasResourceRole(role, resource)
 
-## FIXME: kc.loadUserProfile()
+## kc.loadUserProfile()
 
-## FIXME: kc.loadUserInfo()
+- sends request to `'/account'`
+- runs on success:
+
+```js
+kc.profile = JSON.parse(req.responseText);
+promise.setSuccess(kc.profile);
+```
+
+## kc.loadUserInfo()
+
+- sends request to `kc.endpoints.userinfo()`
+- resolves to `'/protocol/openid-connect/userinfo'` if OIDC server is **not** used
+- runs on success:
+
+```js
+kc.userInfo = JSON.parse(req.responseText);
+promise.setSuccess(kc.userInfo);
+```
 
 ## TODO: kc.isTokenExpired()
 
